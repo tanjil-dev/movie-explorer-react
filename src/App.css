@@ -1,0 +1,133 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 7%;
+  background: #111827;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav > a {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav div {
+  display: flex;
+  gap: 25px;
+}
+
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 50px 7%;
+  background:
+    linear-gradient(
+      rgba(0,0,0,.7),
+      rgba(0,0,0,.8)
+    ),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba")
+    center/cover;
+}
+
+
+.hero-content {
+  max-width: 600px;
+}
+
+
+.hero h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+.hero-button {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 25px;
+  background: #f59e0b;
+  color: black;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+
+.movies-page {
+  padding: 40px 7%;
+}
+
+
+.movies-page h1 {
+  margin-bottom: 25px;
+}
+
+
+.movies-page input {
+  width: 300px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 30px;
+}
+
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 25px;
+}
+
+
+.movie-card {
+  background: #1f2937;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+.movie-card img {
+  width:100%;
+  height:280px;
+  object-fit:cover;
+}
+
+
+.movie-info {
+  padding:15px;
+}
+
+
+.movie-info h2 {
+  font-size:20px;
+}
+
+
+.movie-info p {
+  color:#f59e0b;
+}
+
+
+.movie-info span {
+  color:#aaa;
+}
+
+
+.footer {
+  text-align:center;
+  padding:30px;
+  background:#0b1120;
+  margin-top:30px;
+}
