@@ -1,64 +1,82 @@
-import { useState } from "react";
-import MovieCard from "../components/MovieCard";
-
-const movies = [
-  {
-    id: 1,
-    title: "Interstellar",
-    year: "2014",
-    genre: "Sci-Fi",
-    image:
-      "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa",
-  },
-  {
-    id: 2,
-    title: "The Dark Knight",
-    year: "2008",
-    genre: "Action",
-    image:
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
-  },
-  {
-    id: 3,
-    title: "Avatar",
-    year: "2009",
-    genre: "Adventure",
-    image:
-      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23",
-  },
-  {
-    id: 4,
-    title: "Inception",
-    year: "2010",
-    genre: "Thriller",
-    image:
-      "https://images.unsplash.com/photo-1485846234645-a62644f84728",
-  },
-];
+import { useEffect, useState } from "react";
 
 function Movies() {
-  const [search, setSearch] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://api.tvmaze.com/shows")
+      .then((response) => response.json())
+      .then((data) => {
+        setMovies(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(search.toLowerCase())
+    movie.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <div>
+        <h2>Loading movies...</h2>
+      </div>
+    );
+  }
 
   return (
     <main className="movies-page">
-      <h1>Explore Movies</h1>
+
+      <h1>Movie Explorer</h1>
 
       <input
         type="text"
-        placeholder="Search movie..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search movies..."
+        value={searchText}
+        onChange={(event) => setSearchText(event.target.value)}
       />
 
+      <p>
+        Found {filteredMovies.length} shows
+      </p>
+
+
       <div className="movie-grid">
+
         {filteredMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+
+          <div className="movie-card" key={movie.id}>
+
+            {movie.image?.medium && (
+              <img
+                src={movie.image.medium}
+                alt={movie.name}
+              />
+            )}
+
+            <h2>{movie.name}</h2>
+
+            <p>
+              Rating: {movie.rating?.average || "N/A"}
+            </p>
+
+
+
+          </div>
+
         ))}
+
       </div>
+
+
+
     </main>
   );
 }
